@@ -1,0 +1,63 @@
+<div class="d-flex">
+    <!-- Sidebar -->
+    <aside class="sidebar bg-dark text-white p-2">
+        <ul class="list-unstyled position-relative h-100">
+            <!-- Profile -->
+            <li class="d-flex align-items-center gap-3 mb-5 mt-3">
+                <div class="rounded-circle border border-2 border-white overflow-hidden w-45px h-45px flex-shrink-0">
+                    <img src="/assets/images/user.webp" alt="profile" class="w-100 h-100 object-fit-cover">
+                </div>
+                <h5 class="text-transform-capitalize">Dashboard</h5>
+            </li>
+            <!-- Menu -->
+            <li>
+                <a class="nav-link d-flex align-items-center gap-3 p-2 rounded active" href="#">
+                    <i class="fas fa-chart-pie fs-4"></i>
+                    <span>Charts</span>
+                </a>
+            </li>
+            <!-- Logout -->
+            <li class="position-absolute bottom-0 w-100 mb-3">
+                <a class="nav-link d-flex align-items-center gap-3 p-2 rounded bg-danger text-white" href="#">
+                    <i class="fas fa-sign-out fs-4"></i>
+                    <span>Log out</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
+    <!-- Toggle Button -->
+
+    <!-- Main Content -->
+    <div class="m-3 w-100">
+        <!-- Top Navbar -->
+        <header class="d-flex justify-content-between align-items-center bg-primary p-3 rounded mb-4">
+            <p class="mb-0">Dashboard</p>
+            <i class="fas fa-chart-bar"></i>
+        </header>
+
+        <!-- Dashboard Content -->
+        <main>
+            <div class="my-3">
+                <div class="d-flex align-items-center justify-content-end gap-2 form-switch w-100">
+                    <input type="checkbox" (change)="toggleMode($event)"
+                      [checked]="!viewMode" class="form-check-input w-45px h-25px">
+                    <label class="text-dark fw-semibold fs-5"> Edit Mode</label>
+                </div>
+            </div>
+            
+            <div *ngIf="viewMode" class="chart-container d-block">
+                <app-chart *ngIf="boxes.includes('line')" [type]="'line'" [data]="lineChartData"
+                    [labels]="lineChartLabels"></app-chart>
+                <app-chart *ngIf="boxes.includes('bar')" [type]="'bar'" [data]="barChartData"
+                    [labels]="barChartLabels"></app-chart>
+            </div>
+
+            <div *ngIf="!viewMode" class="d-flex justify-content-end my-3 gap-3">
+                <button class="btn btn-danger round-4 p-2" (click)="hideBox('line')" *ngIf="boxes.includes('line')">Hide Line Chart</button>
+                <button class="btn btn-danger round-4 p-2"(click)="hideBox('bar')" *ngIf="boxes.includes('bar')">Hide Bar Chart</button>
+                <button class="btn btn-success round-4 p-2" (click)="addBox('line')" *ngIf="!boxes.includes('line')">Add Line Chart</button>
+                <button class="btn btn-success round-4 p-2" (click)="addBox('bar')" *ngIf="!boxes.includes('bar')">Add Bar Chart</button>
+            </div>
+        </main>
+    </div>
+</div>
